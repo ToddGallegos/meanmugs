@@ -3,16 +3,16 @@ This is a storefront app for the MeanMugs business.
 It should have:
 
 ROUTES:
-products
-products/<product_id>
-cart
-signup
-signin
+- products
+- products/<product_id>
+- cart
+- signup
+- signin
 
 DATABASE TABLES:
-User (user_id, username, password, email)
-Product (product_id, name, description, price, image, quantity)
-Cart (cart_id, user_id (FK), product_id (FK))
+- User (user_id, username, password, email)
+- Product (product_id, name, description, price, image, quantity)
+- Cart (cart_id, user_id (FK), product_id (FK))
 
 FUNCTIONALITY:
 - A user should be able to sign up

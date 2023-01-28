@@ -9,9 +9,25 @@ from .auth.forms import AddMugsForm
 @app.route('/', methods=["GET", "POST"])
 def mugs():
     mugs = Mugs.query.all()
+    return render_template('mugs.html', mugs = mugs)
+
+
+@app.route("/<int:mug_id>/delete", methods=["POST", "GET"])
+def deleteMug(mug_id):
+    mug = Mugs.query.get(mug_id)
+
+    mug.deleteFromDB()
+    return redirect(url_for('mugs'))
+
+@app.route("/addmugs", methods=["POST", "GET"])
+def addMug():
+    
     form = AddMugsForm()
+    
     if request.method == "POST":
+        
         if form.validate():
+            
             title = form.title.data
             img_url = form.img_url.data
             caption = form.caption.data
@@ -20,15 +36,13 @@ def mugs():
             
             mug = Mugs(title, img_url, caption, price, quantity)
             mug.saveToDB()
-            mugs = Mugs.query.all()
-            flash("I THINK YOU CREATED A MUG")
-            for i in range(len(mugs)):
-                mugs[i].deleteFromDB()
-            return render_template('mugs.html', form = form, mugs = mugs)
+            
+            flash("Successfully Added Mug to Database!")
+            return render_template('addmugs.html', form = form)
+        
         else:
-            mugs = Mugs.query.all()
-            flash("Invalid input. Please try again.")
-            return render_template('mugs.html', form = form, mugs=mugs)
-    
+            flash("Form didn't pass validation.")
+            return render_template('addmugs.html', form = form)
+        
     elif request.method == "GET":
-        return render_template('mugs.html', form = form, mugs=mugs)
+        return render_template('addmugs.html', form = form)

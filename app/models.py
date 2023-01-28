@@ -44,7 +44,7 @@ class Mugs(db.Model):
         db.session.commit()
         
     def deleteFromDB(self):
-        db.session.delete()
+        db.session.delete(self)
         db.session.commit()
 
 class Cart(db.Model):

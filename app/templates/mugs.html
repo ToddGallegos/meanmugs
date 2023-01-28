@@ -1,21 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-   <h1>PRODUCTS PAGE</h1>
-   <div>
-        <form method="POST" class="container col-4">
-            {{ form.hidden_tag() }}
-            {{form.title(class='form-control', placeholder='title')}}
-            {{form.img_url(class='form-control', placeholder='img url')}}
-            {{form.caption(class='form-control', placeholder='caption')}}
-            {{form.price(class='form-control', placeholder='price')}}
-            {{form.quantity(class='form-control', placeholder='quantity')}}
-            {{form.submit}}
-        </form>
-   </div>
-   <div>
+   <h1 style="text-align:center">PRODUCTS PAGE</h1>
+   <div class="d-flex justify-content-center flex-wrap">
+
     {% for mug in mugs %}
-        <p>{{mug.title}}</p>
-        <img src="{{mug.img_url}}">
+        <div class="card" style="width: 18rem; margin:1rem">
+            <img style="width:75%; margin: 0 auto;" src="{{mug.img_url}}" class="card-img-top" alt="{{ mug.title }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ mug.title }}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+            <li class="list-group-item">Info: {{ mug.caption }}</li>
+            <li class="list-group-item">Price: {{ mug.price }}</li>
+            </ul>
+            <div class="card-body">
+                <a href="#" class="card-link">Add to Cart</a>
+            </div>
+        </div>
     {% endfor %}
-   </div>
+    </div>
+
+    
+
 {% endblock %}

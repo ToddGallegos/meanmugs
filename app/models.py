@@ -29,11 +29,15 @@ class Mugs(db.Model):
     title = db.Column(db.String(100), nullable=False)
     img_url = db.Column(db.String, nullable=False)
     caption = db.Column(db.String(1000))
+    price = db.Column(db.Float, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, title, img_url, caption):
+    def __init__(self, title, img_url, caption, price, quantity):
         self.title = title
         self.img_url = img_url
         self.caption = caption
+        self.price = price
+        self.quantity = quantity
 
     def saveToDB(self):
         db.session.add(self)

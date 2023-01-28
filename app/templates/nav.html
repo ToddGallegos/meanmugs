@@ -1,41 +1,36 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-  
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-          </li>
-  
-          <li class="nav-item">
-            <a class="nav-link" href="/posts">Feed</a>
-          </li>
-  
-  
-          {% if current_user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link" href="/logout">Log Out</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">{{ current_user.username }}</a>
-          </li>
-          {% else %}
-  
-          <li class="nav-item">
-            <a class="nav-link" href="/signup">Sign Up</a>
-          </li>
-  
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Log In</a>
-          </li>
-          {% endif %}
-  
-        
-        </ul>
-      </div>
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a style="font-weight:500" class="navbar-brand" href="/">MeanMugs</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item px-2">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        {% if current_user.is_authenticated %}
+        <li class="nav-item px-2">
+          <a class="nav-link active" href="/battle">My Cart</a>
+        </li>
+        <li class="nav-item px-2">
+          <a class="nav-link active" href="/profile">Edit Profile</a>
+        </li>
+        <li class="nav-item px-2">
+          <a class="nav-link active" href="/logout">Logout</a>
+        </li>
+        <li class="nav-item px-2">
+          <a style="color:rgb(23, 23, 23); font-weight:500" class="nav-link disabled" href="#">Welcome, {{ current_user.first_name }}</a>
+        </li>
+        {% else %}
+        <li class="nav-item px-2">
+          <a class="nav-link active" href="/signup">Sign-Up</a>
+        </li>
+        <li class="nav-item px-2">
+          <a class="nav-link active" href="/signin">Sign-In</a>
+        </li>
+        {% endif %}
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>

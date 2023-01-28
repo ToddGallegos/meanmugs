@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-   <h1 style="text-align:center">PRODUCTS PAGE</h1>
+   <h1 style="text-align:center; margin-top:2rem">PRODUCTS PAGE</h1>
    <div class="d-flex justify-content-center flex-wrap">
 
     {% for mug in mugs %}
@@ -10,8 +10,8 @@
                 <h5 class="card-title">{{ mug.title }}</h5>
             </div>
             <ul class="list-group list-group-flush">
-            <li class="list-group-item">Info: {{ mug.caption }}</li>
-            <li class="list-group-item">Price: {{ mug.price }}</li>
+            <li class="list-group-item">{{ mug.caption }}</li>
+            <li class="list-group-item"><strong>Price:</strong> {{ mug.price }}</li>
             </ul>
             <div class="card-body">
                 <a href="#" class="card-link">Add to Cart</a>

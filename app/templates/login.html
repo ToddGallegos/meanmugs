@@ -4,16 +4,16 @@
 
 
 
-<h1>Login</h1>
+<h1 style="text-align:center; margin-top:2rem">Login</h1>
 
 <form method="POST" class="container col-4">
     {{ form.hidden_tag() }}
 
-    {{ form.username(class='form-control', placeholder='Username') }}
+    {{ form.username(style="margin-top:1rem", class='form-control', placeholder='Username') }}
     
-    {{ form.password(class='form-control', placeholder='Password') }}
+    {{ form.password(style="margin-top:1rem", class='form-control', placeholder='Password') }}
     
-    {{ form.submit(class='btn btn-primary') }}
+    {{ form.submit(style="margin-top:1rem", class='btn btn-primary') }}
 </form>
 
 

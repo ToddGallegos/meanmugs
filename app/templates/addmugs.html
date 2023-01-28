@@ -4,12 +4,12 @@
    <div>
         <form method="POST" class="container col-4">
             {{ form.hidden_tag() }}
-            {{form.title(class='form-control', placeholder='title')}}
-            {{form.img_url(class='form-control', placeholder='img url')}}
-            {{form.caption(class='form-control', placeholder='caption')}}
-            {{form.price(class='form-control', placeholder='price')}}
-            {{form.quantity(class='form-control', placeholder='quantity')}}
-            {{form.submit}}
+            {{form.title(style="margin-top:1rem", class='form-control', placeholder='title')}}
+            {{form.img_url(style="margin-top:1rem", class='form-control', placeholder='img url')}}
+            {{form.caption(style="margin-top:1rem", class='form-control', placeholder='caption')}}
+            {{form.price(style="margin-top:1rem", class='form-control', placeholder='price')}}
+            {{form.quantity(style="margin-top:1rem", class='form-control', placeholder='quantity')}}
+            {{form.submit(style="margin-top:1rem")}}
         </form>
    </div>
    

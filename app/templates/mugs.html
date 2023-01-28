@@ -5,6 +5,7 @@
 
     {% for mug in mugs %}
         <div class="card" style="width: 18rem; margin:1rem">
+            <a class="text-dark text-decoration-none" href="{{ url_for('getMug', mug_id=mug.id) }}">
             <img style="width:75%; margin: 0 auto;" src="{{mug.img_url}}" class="card-img-top" alt="{{ mug.title }}">
             <div class="card-body">
                 <h5 class="card-title">{{ mug.title }}</h5>
@@ -12,7 +13,7 @@
             <ul class="list-group list-group-flush">
             <li class="list-group-item">{{ mug.caption }}</li>
             <li class="list-group-item"><strong>Price:</strong> {{ mug.price }}</li>
-            </ul>
+            </ul></a>
             <div class="card-body">
                 <a href="#" class="card-link">Add to Cart</a>
             </div>

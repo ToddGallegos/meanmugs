@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<!-- <div class="container">
+    <div class="image" style="float:left;">
+        <img style="width:200px; height:200px; margin: 0 auto;" src="{{mug.img_url}}" alt="{{ mug.title }}">
+    </div>
+    <div class="description" style="float:right;">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{ mug.caption }}</li>
+            <li class="list-group-item"><strong>Price:</strong> {{ mug.price }}</li>
+        </ul>
+    </div>
+</div> -->
+
+<div class="card my-5 mx-auto rounded" style="max-width: 600px">
+    <div class="row g-0">
+        <div class="col-md-4 pt-5 mt-5 rounded">
+            <img src="{{mug.img_url}}" class="img-fluid rounded-start" alt="{{ mug.title }}">
+        </div>
+        <div class="col-md-8 rounded">
+            <div class="card-body rounded">
+                <h5 class="card-title mt-4 mb-4">{{ mug.title }}</h5>
+                <div class="card-text mt-4 mb-4">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{ mug.caption }}</li>
+                        <li class="list-group-item"><strong>Price:</strong> {{ mug.price }}</li>
+                    </ul>
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <a href="#" class="card-link">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div style="display: flex; align-items: center; height: 100vh">
+    <div class="card" style="width: 18rem; margin: 0 auto;">
+        
+        <div class="card-body">
+            <h5 class="card-title">{{ mug.title }}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{ mug.caption }}</li>
+            <li class="list-group-item"><strong>Price:</strong> {{ mug.price }}</li>
+        </ul>
+        <div class="card-body">
+            <a href="#" class="card-link">Add to Cart</a>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %} -->

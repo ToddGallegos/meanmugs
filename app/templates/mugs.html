@@ -1,4 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
    <h1>PRODUCTS PAGE</h1>
+   <div>
+        <form method="POST" class="container col-4">
+            {{ form.hidden_tag() }}
+            {{form.title(class='form-control', placeholder='title')}}
+            {{form.img_url(class='form-control', placeholder='img url')}}
+            {{form.caption(class='form-control', placeholder='caption')}}
+            {{form.price(class='form-control', placeholder='price')}}
+            {{form.quantity(class='form-control', placeholder='quantity')}}
+            {{form.submit}}
+        </form>
+   </div>
+   <div>
+    {% for mug in mugs %}
+        <p>{{mug.title}}</p>
+        <img src="{{mug.img_url}}">
+    {% endfor %}
+   </div>
 {% endblock %}

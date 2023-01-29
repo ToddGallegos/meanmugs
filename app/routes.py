@@ -52,7 +52,7 @@ def add_to_cart(mug_id):
     temp.append(mugdict)
     session['cart'] = temp
     print("\n\nADDTOCART ROUTE GETMETHOD SESSION CART", session['cart'], "\n\n")
-    return render_template('cart.html', cart=session['cart'])
+    return redirect(url_for('cart'))
 
 
 @app.route('/cart/<int:mug_id>/remove', methods=["POST", "GET"])

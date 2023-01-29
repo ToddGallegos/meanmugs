@@ -1,29 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div id="cart">
-    <h2>Your Cart</h2>
-    
+<h1 style="text-align:center; margin:2rem 0; font-weight:500; font-size: 120px; text-shadow:0 0 0.1em rgb(255, 255, 255)">Cart:</h1>
+   <div class="d-flex justify-content-center flex-wrap">
+
     {% for mug in cart %}
-    <div class="mug">
-        <img src="{{ mug.img_url }}" alt="{{ mug.title }}">
-        <h3>{{ mug.title }}</h3>
-        <p>{{ mug.price }}</p>
-        <form action="{{ url_for('remove_from_cart', mug_id=mug.id) }}" method="post">
-            <input type="submit" value="Remove">
-        </form>
-    </div>
+        <div class="card" style="width: 18rem; margin:1rem; border: 1px solid black">
+            <a class="text-dark text-decoration-none" href="{{ url_for('getMug', mug_id=mug.id) }}">
+            <img style="width:80%; margin: 0 auto; padding-left: 3rem" src="{{mug.img_url}}" class="card-img-top" alt="{{ mug.title }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ mug.title }}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+            <li class="list-group-item"></li>
+            <li class="list-group-item">{{ mug.caption }}</li>
+            <li class="list-group-item"><strong>Price:</strong> {{ mug.price }}</li>
+            </ul></a>
+            <div class="card-body">
+                <form action="{{ url_for('remove_from_cart', mug_id=mug.id) }}" method="post">
+                    <input type="submit" value="Remove">
+                </form>
+            </div>
+        </div>
     {% endfor %}
-</div>
+    </div>
 
-
-{% set total = 0 %}
-
-
-{% for mug in cart %}
-    {% set total =  total + mug.price %}
-{% endfor %}
-
-<h3>Total: {{ total }}</h3>
+<h3 style="text-align:center; margin:2rem 0; font-weight:500; font-size: 50px; text-shadow:0 0 0.1em rgb(255, 255, 255)">Total: ${{ cart|sum(attribute='price')|round(2) }}</h3>
 
 {% endblock %}

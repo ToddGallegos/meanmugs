@@ -9,34 +9,31 @@ from .auth.forms import AddMugsForm
 
 @app.route('/', methods=["GET", "POST"])
 def mugs():
+    
     mugs = Mugs.query.all()
+    
     return render_template('mugs.html', mugs = mugs)
 
 @app.route('/<int:mug_id>', methods=["GET"])
 def getMug(mug_id):
+    
     mug = Mugs.query.get(mug_id)
+    
     return render_template('singlemug.html', mug=mug)
-
 
 @app.route('/cart', methods=["GET", "POST"])
 def cart():
-    # Here i realized that we designed "Cart" objects to only be able to hold 1 productid.
-    # Currently impossible to have a database Cart with more than 1 item in it.
-    # But we are creating a "session" cart, not a Cart object from models.py.  
-    # To utilize the database Cart we would have to create another table "cart_mugs" that 
-    # connects a Cart to all the mugs that are in it. Like the service_ticket_mechanic table 
-    # from the car dealership, where it just serves to be able to find all the mechanics that were 
-    # associated with that service ticket.
-    
+
     if 'cart' not in session:
         session['cart'] = []
-    print("\n\nCART ROUTE SESSION CART", session['cart'],"\n\n")
 
     return render_template('cart.html', cart=session['cart'])
 
 @app.route('/<int:mug_id>/add_to_cart', methods=["POST", "GET"])
 def add_to_cart(mug_id):
+    
     mug = Mugs.query.get(mug_id)
+    
     if 'cart' not in session:
         session['cart'] = [] 
     
@@ -48,29 +45,26 @@ def add_to_cart(mug_id):
         "price": mug.price,
         "quantity": mug.quantity
         }  
+    
     temp = session['cart']
     temp.append(mugdict)
     session['cart'] = temp
-    print("\n\nADDTOCART ROUTE GETMETHOD SESSION CART", session['cart'], "\n\n")
-    return redirect(url_for('cart'))
-
-
-@app.route('/cart/<int:mug_id>/remove', methods=["POST", "GET"])
-def remove_from_cart(mug_id):
-    print("\n\n",session['cart'], "\n\n")
-    if mug_id not in [mug['id'] for mug in session['cart']]:
-        return redirect(url_for('cart'))
-    session['cart'] = [mug for mug in session['cart'] if mug['id'] != mug_id]
-
     
     return redirect(url_for('cart'))
 
-
-
-
+@app.route('/cart/<int:mug_id>/remove', methods=["POST", "GET"])
+def remove_from_cart(mug_id):
+    
+    if mug_id not in [mug['id'] for mug in session['cart']]:
+        return redirect(url_for('cart'))
+    
+    session['cart'] = [mug for mug in session['cart'] if mug['id'] != mug_id]
+    
+    return redirect(url_for('cart'))
 
 @app.route("/<int:mug_id>/delete", methods=["POST", "GET"])
 def deleteMug(mug_id):
+    
     mug = Mugs.query.get(mug_id)
 
     mug.deleteFromDB()
@@ -78,7 +72,7 @@ def deleteMug(mug_id):
 
 @app.route("/addmugs", methods=["POST", "GET"])
 def addMug():
-    
+
     form = AddMugsForm()
     
     if request.method == "POST":

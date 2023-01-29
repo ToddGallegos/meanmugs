@@ -5,9 +5,7 @@ from flask_login import current_user, login_required
 import requests
 import os
 from .auth.forms import AddMugsForm
-from datetime import timedelta
 
-app.permanent_session_lifetime = timedelta(days=1)
 
 @app.route('/', methods=["GET", "POST"])
 def mugs():
@@ -23,10 +21,13 @@ def getMug(mug_id):
 @app.route('/cart', methods=["GET", "POST"])
 def cart():
     # Here i realized that we designed "Cart" objects to only be able to hold 1 productid.
-    # Currently impossible to have Cart with more than 1 item in it.
-    # But we are creating a "session" cart, not a Cart object from models.py, so the cart 
-    # only holding 1 item at a time might have nothing to do with our database and just be 
-    # because our add_to_cart logic is wrong somehow. or we dont understand how to persist "session" data.
+    # Currently impossible to have a database Cart with more than 1 item in it.
+    # But we are creating a "session" cart, not a Cart object from models.py.  
+    # To utilize the database Cart we would have to create another table "cart_mugs" that 
+    # connects a Cart to all the mugs that are in it. Like the service_ticket_mechanic table 
+    # from the car dealership, where it just serves to be able to find all the mechanics that were 
+    # associated with that service ticket.
+    
     if 'cart' not in session:
         session['cart'] = []
     print("\n\nCART ROUTE SESSION CART", session['cart'],"\n\n")
@@ -38,15 +39,30 @@ def add_to_cart(mug_id):
     mug = Mugs.query.get(mug_id)
     if 'cart' not in session:
         session['cart'] = [] 
-        
-    session['cart'].append(mug)
+    
+    mugdict = {
+        "id": mug.id,
+        "title": mug.title,
+        "img_url": mug.img_url,
+        "caption": mug.caption,
+        "price": mug.price,
+        "quantity": mug.quantity
+        }  
+    temp = session['cart']
+    temp.append(mugdict)
+    session['cart'] = temp
     print("\n\nADDTOCART ROUTE GETMETHOD SESSION CART", session['cart'], "\n\n")
     return render_template('cart.html', cart=session['cart'])
 
 
 @app.route('/cart/<int:mug_id>/remove', methods=["POST", "GET"])
 def remove_from_cart(mug_id):
-    session['cart'] = [mug for mug in session['cart'] if mug.id != mug_id]
+    print("\n\n",session['cart'], "\n\n")
+    if mug_id not in [mug['id'] for mug in session['cart']]:
+        return redirect(url_for('cart'))
+    session['cart'] = [mug for mug in session['cart'] if mug['id'] != mug_id]
+
+    
     return redirect(url_for('cart'))
 
 

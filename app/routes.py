@@ -12,33 +12,29 @@ def mugs():
     mugs = Mugs.query.all()
     return render_template('mugs.html', mugs = mugs)
 
-@app.route('/cart')
+@app.route('/<int:mug_id>', methods=["GET"])
+def getMug(mug_id):
+    mug = Mugs.query.get(mug_id)
+    return render_template('singlemug.html', mug=mug)
+
+
+@app.route('/cart', methods=["GET", "POST"])
 def cart():
     if 'cart' not in session:
         session['cart'] = []
 
     return render_template('cart.html', cart=session['cart'])
 
-@app.route('/<int:mug_id>', methods=["GET"])
-def getMug(mug_id):
+@app.route('/<int:mug_id>/add_to_cart', methods=["POST"])
+def add_to_cart(mug_id):
     mug = Mugs.query.get(mug_id)
-    return render_template('singlemug.html', mug=mug)
+    session['cart'].append(mug)
+    return redirect(url_for('cart'))
 
-# @app.route('/<int:mug_id>/add_to_cart', methods=["POST"])
-# def add_to_cart(mug_id):
-#     mug = Mugs.query.get(mug_id)
-#     session['cart'].append(mug)
-#     return redirect(url_for('cart'))
-
-# @app.route('/cart/<int:mug_id>/remove', methods=["POST"])
-# def remove_from_cart(mug_id):
-#     session['cart'] = [mug for mug in session['cart'] if mug.id != mug_id]
-#     return redirect(url_for('cart'))
-
-
-
-
-
+@app.route('/cart/<int:mug_id>/remove', methods=["POST"])
+def remove_from_cart(mug_id):
+    session['cart'] = [mug for mug in session['cart'] if mug.id != mug_id]
+    return redirect(url_for('cart'))
 
 
 

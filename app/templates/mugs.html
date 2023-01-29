@@ -15,7 +15,7 @@
             <li class="list-group-item"><strong>Price:</strong> {{ mug.price }}</li>
             </ul></a>
             <div class="card-body">
-                <a href="#" class="card-link">Add to Cart</a>
+                <a href="{{  url_for('cart') }}" class="card-link">Add to Cart</a>
             </div>
         </div>
     {% endfor %}

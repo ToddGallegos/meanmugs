@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div id="cart">
+    <h2>Your Cart</h2>
+    {% for mug in cart %}
+    <div class="mug">
+        <img src="{{ mug.img_url }}" alt="{{ mug.title }}">
+        <h3>{{ mug.title }}</h3>
+        <p>{{ mug.price }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% set_total = 0 %}
+{% for mug in cart %}
+    {% set_total = total + mug.price %}
+{% endfor %}
+
+<h3>Total: {{ set_total }}</h3>
+{% for mug in cart %}
+    <form action="{{ url_for('remove_from_cart', mug_id=mug.id) }}" method="post">
+        <input type="submit" value="Remove">
+    </form>
+{% endfor %}
+
+
+
+
+
+
+{% endblock %}

@@ -46,7 +46,7 @@ def loginPage():
                 if check_password_hash(user.password, password):
                     login_user(user)
                     flash(f'Successfully logged in! Welcome back {user.username}', category='success')                    
-                    return redirect(url_for('getPosts'))
+                    return redirect(url_for('mugs'))
 
                 else:
                     flash('wrong password', category='danger')

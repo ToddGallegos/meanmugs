@@ -46,15 +46,18 @@ class Mugs(db.Model):
     def deleteFromDB(self):
         db.session.delete(self)
         db.session.commit()
+        
+    def to_dict(self):
+        return {"id": self.id, "title": self.title, "img_url": self.img_url, "caption": self.caption, "price": self.price, "quantity": self.quantity}
 
 class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     mugs_id = db.Column(db.Integer, db.ForeignKey('mugs.id'), nullable=False)
 
-    def __init__(self, user_id, post_id):
+    def __init__(self, user_id, mugs_id):
         self.user_id = user_id
-        self.post_id = post_id
+        self.mugs_id = mugs_id
     def saveToDB(self):
         db.session.add(self)
         db.session.commit()

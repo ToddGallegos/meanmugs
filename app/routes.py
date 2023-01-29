@@ -1,11 +1,13 @@
 from app import app
-from flask import render_template, request, redirect, url_for, flash, session
-from .models import User, Mugs
+from flask import render_template, request, redirect, url_for, flash, session, jsonify
+from .models import User, Mugs, Cart
 from flask_login import current_user, login_required
 import requests
 import os
 from .auth.forms import AddMugsForm
+from datetime import timedelta
 
+app.permanent_session_lifetime = timedelta(days=1)
 
 @app.route('/', methods=["GET", "POST"])
 def mugs():
@@ -20,18 +22,29 @@ def getMug(mug_id):
 
 @app.route('/cart', methods=["GET", "POST"])
 def cart():
+    # Here i realized that we designed "Cart" objects to only be able to hold 1 productid.
+    # Currently impossible to have Cart with more than 1 item in it.
+    # But we are creating a "session" cart, not a Cart object from models.py, so the cart 
+    # only holding 1 item at a time might have nothing to do with our database and just be 
+    # because our add_to_cart logic is wrong somehow. or we dont understand how to persist "session" data.
     if 'cart' not in session:
         session['cart'] = []
+    print("\n\nCART ROUTE SESSION CART", session['cart'],"\n\n")
 
     return render_template('cart.html', cart=session['cart'])
 
-@app.route('/<int:mug_id>/add_to_cart', methods=["POST"])
+@app.route('/<int:mug_id>/add_to_cart', methods=["POST", "GET"])
 def add_to_cart(mug_id):
     mug = Mugs.query.get(mug_id)
+    if 'cart' not in session:
+        session['cart'] = [] 
+        
     session['cart'].append(mug)
-    return redirect(url_for('cart'))
+    print("\n\nADDTOCART ROUTE GETMETHOD SESSION CART", session['cart'], "\n\n")
+    return render_template('cart.html', cart=session['cart'])
 
-@app.route('/cart/<int:mug_id>/remove', methods=["POST"])
+
+@app.route('/cart/<int:mug_id>/remove', methods=["POST", "GET"])
 def remove_from_cart(mug_id):
     session['cart'] = [mug for mug in session['cart'] if mug.id != mug_id]
     return redirect(url_for('cart'))

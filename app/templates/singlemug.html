@@ -12,11 +12,13 @@
                 <div class="card-text mt-4 mb-4">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">{{ mug.caption }}</li>
-                        <li class="list-group-item"><strong>Price:</strong> {{ mug.price }}</li>
+                        <li class="list-group-item"><strong>Price:</strong> ${{ mug.price }}</li>
                     </ul>
                 </div>
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <a href="{{ url_for('cart') }}" class="card-link">Add to Cart</a>
+                    <button type="button" class="btn btn-success btn-sm">
+                        <a href="/{{mug.id}}/add_to_cart" class="card-link" style="color:white; text-decoration:none;">Add to Cart</a>
+                      </button>
                 </div>
             </div>
         </div>

@@ -53,14 +53,21 @@ class Mugs(db.Model):
 class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    mugs_id = db.Column(db.Integer, db.ForeignKey('mugs.id'), nullable=False)
+    mug_id = db.Column(db.Integer, db.ForeignKey('mugs.id'), nullable=False)
+    quantity = db.Column(db.Integer, default=1)
 
-    def __init__(self, user_id, mugs_id):
+    def __init__(self, user_id, mug_id, quantity=1):
         self.user_id = user_id
-        self.mugs_id = mugs_id
+        self.mug_id = mug_id
+        self.quantity = quantity
+
+    def update_quantity(self, quantity):
+        self.quantity += quantity
+
     def saveToDB(self):
         db.session.add(self)
         db.session.commit()
+
     def deleteFromDB(self):
         db.session.delete(self)
         db.session.commit()

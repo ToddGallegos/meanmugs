@@ -4,9 +4,7 @@ from .forms import UserCreationForm, LoginForm
 from flask_login import login_user, logout_user, login_required
 from werkzeug.security import check_password_hash
 
-
 auth = Blueprint('auth', __name__, template_folder='auth_templates')
-
 
 @auth.route('/signup', methods=["GET", "POST"])
 def signUpPage():
@@ -18,15 +16,12 @@ def signUpPage():
             email = form.email.data
             password = form.password.data
             
-
-
             # add user to database
             user = User(username, email, password)
 
             user.saveToDB()
 
             return redirect(url_for('auth.loginPage'))
-
 
     return render_template('signup.html', form = form )
 
@@ -53,8 +48,6 @@ def loginPage():
 
             else:
                 flash('user doesnt exist', category='danger')
-
-
 
     return render_template('login.html', form = form)
 

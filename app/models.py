@@ -1,5 +1,4 @@
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
 from flask_login import UserMixin
 from secrets import token_hex
 from werkzeug.security import generate_password_hash

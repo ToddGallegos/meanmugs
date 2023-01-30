@@ -1,11 +1,8 @@
 from app import app
-from flask import render_template, request, redirect, url_for, flash, session
+from flask import render_template, request, redirect, url_for, flash
 from .models import Cart, User, Mugs
 from flask_login import current_user, login_required
-import requests
-import os
 from .auth.forms import AddMugsForm, MakeAdminForm
-
 
 @app.route('/', methods=["GET", "POST"])
 def mugs():
@@ -73,8 +70,6 @@ def clear_cart():
         cart_item.deleteFromDB()
 
     return redirect(url_for('cart'))
-
-
 
 @app.route("/<int:mug_id>/delete", methods=["POST", "GET"])
 def deleteMug(mug_id):

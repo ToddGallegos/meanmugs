@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1 style="text-align:center; margin:2rem 0; font-weight:500; font-size: 60px; text-shadow:0 0 0.1em rgb(255, 255, 255)">Cart:</h1>
+<h1 style="text-align:center; margin:4.5rem 0 2rem 0; font-weight:500; font-size: 60px; text-shadow:0 0 0.1em rgb(255, 255, 255)">Cart:</h1>
 <div class="d-flex justify-content-center flex-wrap">
     {% for item in cart %}
-    <div class="card" style="width: 14rem; margin:1rem; border: 1px solid black">
+    <div class="card" style="width: 14rem; margin:0; border: 1px solid black">
         <a class="text-dark text-decoration-none" href="{{ url_for('getMug', mug_id=item.id) }}">
             <img style="width:80%; margin: 0 auto; padding-left: 3rem" src="{{ item.img_url }}" class="card-img-top"
                 alt="{{ item.title }}">

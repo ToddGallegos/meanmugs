@@ -1,4 +1,4 @@
-<nav  class="navbar navbar-expand-lg bg-light">
+<nav  class="navbar fixed-top navbar-expand-lg bg-light">
   <div class="container-fluid">
     <a style="font-weight:500; color:black" class="navbar-brand" href="/">MeanMugs</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,7 +22,7 @@
           <a style="color:black" class="nav-link active" href="/logout">Logout</a>
         </li>
         <li class="nav-item px-2">
-          <a style="color:rgb(23, 23, 23); font-weight:500" class="nav-link disabled" href="#">Welcome, {{ current_user.username }}</a>
+          <a style="color:rgb(23, 23, 23); font-weight:500" class="nav-link disabled" href="#">Hi, {{ current_user.username }}</a>
         </li>
         {% else %}
         <li class="nav-item px-2">

@@ -85,36 +85,39 @@ def deleteMug(mug_id):
 
 @app.route("/addmugs", methods=["POST", "GET"])
 def addMug():
-    form2 = MakeAdminForm()
-    form = AddMugsForm()
-    mugs = Mugs.query.all()
-    if request.method == "POST":
-        
-        if form.submit.data and form.validate():
+    if current_user.admin == True:
+        form2 = MakeAdminForm()
+        form = AddMugsForm()
+        mugs = Mugs.query.all()
+        if request.method == "POST":
             
-            title = form.title.data
-            img_url = form.img_url.data
-            caption = form.caption.data
-            price = form.price.data
-            quantity = form.quantity.data
+            if form.submit.data and form.validate():
+                
+                title = form.title.data
+                img_url = form.img_url.data
+                caption = form.caption.data
+                price = form.price.data
+                quantity = form.quantity.data
+                
+                mug = Mugs(title, img_url, caption, price, quantity)
+                mug.saveToDB()
+                
+                flash("Successfully Added Mug to Database!")
+                return render_template('addmugs.html', form = form, mugs = mugs, form2 = form2)
             
-            mug = Mugs(title, img_url, caption, price, quantity)
-            mug.saveToDB()
+            elif form2.submitadmin.data and form2.validate():
+                
+                username = form2.username.data
+                return render_template('makeadmin.html', username = username)
+            else:
+                flash("Form didn't pass validation.")
+                return render_template('addmugs.html', form = form, mugs = mugs, form2 = form2)
             
-            flash("Successfully Added Mug to Database!")
+        elif request.method == "GET":
             return render_template('addmugs.html', form = form, mugs = mugs, form2 = form2)
+    else:
+        return redirect(url_for('mugs'))
         
-        elif form2.submitadmin.data and form2.validate():
-            
-            username = form2.username.data
-            return render_template('makeadmin.html', username = username)
-        else:
-            flash("Form didn't pass validation.")
-            return render_template('addmugs.html', form = form, mugs = mugs, form2 = form2)
-        
-    elif request.method == "GET":
-        return render_template('addmugs.html', form = form, mugs = mugs, form2 = form2)
-    
 @app.route("/makeadmin/<username>", methods=["POST", "GET"])
 def MakeAdmin(username):
     

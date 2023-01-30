@@ -1,7 +1,7 @@
 This is a storefront app for the MeanMugs business.
 Created by Aziel and Todd.
 
-FUNCTIONALITY:
+FUNCTIONALITY CHECKLIST:
 - A user is able to sign up.
 - A route that shows a list of all available products.
 - When you click on a product it is linked to a route which shows a single product (with the information of the product you just clicked).

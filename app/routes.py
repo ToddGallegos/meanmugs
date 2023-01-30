@@ -33,7 +33,6 @@ def cart():
 
 @app.route('/<int:mug_id>/add_to_cart', methods=["POST", "GET"])
 def add_to_cart(mug_id):
-    mug = Mugs.query.get(mug_id)
 
     if current_user.is_authenticated:
         user_id = current_user.id
@@ -88,7 +87,7 @@ def deleteMug(mug_id):
 def addMug():
     
     form = AddMugsForm()
-    
+    mugs = Mugs.query.all()
     if request.method == "POST":
         
         if form.validate():
@@ -103,11 +102,11 @@ def addMug():
             mug.saveToDB()
             
             flash("Successfully Added Mug to Database!")
-            return render_template('addmugs.html', form = form)
+            return render_template('addmugs.html', form = form, mugs = mugs)
         
         else:
             flash("Form didn't pass validation.")
-            return render_template('addmugs.html', form = form)
+            return render_template('addmugs.html', form = form, mugs = mugs)
         
     elif request.method == "GET":
-        return render_template('addmugs.html', form = form)
+        return render_template('addmugs.html', form = form, mugs = mugs)

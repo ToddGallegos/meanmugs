@@ -4,7 +4,7 @@ from .models import Cart, User, Mugs
 from flask_login import current_user, login_required
 import requests
 import os
-from .auth.forms import AddMugsForm
+from .auth.forms import AddMugsForm, MakeAdminForm
 
 
 @app.route('/', methods=["GET", "POST"])
@@ -17,7 +17,7 @@ def getMug(mug_id):
     mug = Mugs.query.get(mug_id)
     return render_template('singlemug.html', mug=mug)
 
-
+@login_required
 @app.route("/cart")
 def cart():
     user_id = current_user.id
@@ -85,12 +85,12 @@ def deleteMug(mug_id):
 
 @app.route("/addmugs", methods=["POST", "GET"])
 def addMug():
-    
+    form2 = MakeAdminForm()
     form = AddMugsForm()
     mugs = Mugs.query.all()
     if request.method == "POST":
         
-        if form.validate():
+        if form.submit.data and form.validate():
             
             title = form.title.data
             img_url = form.img_url.data
@@ -102,11 +102,28 @@ def addMug():
             mug.saveToDB()
             
             flash("Successfully Added Mug to Database!")
-            return render_template('addmugs.html', form = form, mugs = mugs)
+            return render_template('addmugs.html', form = form, mugs = mugs, form2 = form2)
         
+        elif form2.submitadmin.data and form2.validate():
+            
+            username = form2.username.data
+            return render_template('makeadmin.html', username = username)
         else:
             flash("Form didn't pass validation.")
-            return render_template('addmugs.html', form = form, mugs = mugs)
+            return render_template('addmugs.html', form = form, mugs = mugs, form2 = form2)
         
     elif request.method == "GET":
-        return render_template('addmugs.html', form = form, mugs = mugs)
+        return render_template('addmugs.html', form = form, mugs = mugs, form2 = form2)
+    
+@app.route("/makeadmin/<username>", methods=["POST", "GET"])
+def MakeAdmin(username):
+    
+    user = User.query.filter_by(username=username).first()
+    user.makeAdmin()
+    
+    return redirect(url_for('addMug'))
+
+@app.route("/makeadmin/", methods=["POST", "GET"])
+def MakeAdminPage():
+    
+    return render_template('makeadmin.html')

@@ -9,6 +9,11 @@
         <li class="nav-item px-2">
           <a style="color:black" class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
+        {% if current_user.admin == True %}
+        <li class="nav-item px-2">
+          <a style="color:black" class="nav-link active" aria-current="page" href="/addmugs">Admin</a>
+        </li>
+        {% endif %}
         {% if current_user.is_authenticated %}
         <li class="nav-item px-2">
           <a style="color:black" class="nav-link active" href="/cart">My Cart</a>

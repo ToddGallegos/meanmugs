@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 style="text-align:center">MAKE ADMIN:</h1>
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{username}}</h5>
+      <a href="/makeadmin/{{username}}" class="card-link">Make Admin</a>
+    </div>
+  </div>
+
+{% endblock %}

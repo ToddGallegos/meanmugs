@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-   <h1 style="text-align:center">ADD MUGS TO DATABASE:</h1>
+<h1 style="text-align:center; margin:2rem 0; font-weight:500; text-shadow:0 0 0.1em rgb(255, 255, 255)">MAKE ADMIN:</h1>
+<div>
+     <form method="POST" class="container col-4">
+         {{ form.hidden_tag() }}
+         {{form2.username(style="margin-top:1rem", class='form-control', placeholder='username')}}
+         {{form2.submitadmin(style="margin-top:1rem", value="Make Admin")}}
+     </form>
+</div>
+<h1 style="text-align:center; margin:2rem 0; font-weight:500; text-shadow:0 0 0.1em rgb(255, 255, 255)">ADD MUGS TO DATABASE:</h1>
    <div>
         <form method="POST" class="container col-4">
             {{ form.hidden_tag() }}

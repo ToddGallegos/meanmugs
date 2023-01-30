@@ -11,7 +11,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(45), nullable=False, unique=True)
     email = db.Column(db.String(150), nullable=False, unique=True)
     password = db.Column(db.String, nullable=False)
-
+    admin = db.Column(db.Boolean, default=False)
 
     def __init__(self, username, email, password):
         self.username = username
@@ -22,7 +22,10 @@ class User(db.Model, UserMixin):
     def saveToDB(self):
         db.session.add(self)
         db.session.commit()
-
+        
+    def makeAdmin(self):
+        self.admin = True
+        db.session.commit()
 
 class Mugs(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -63,6 +66,7 @@ class Cart(db.Model):
 
     def update_quantity(self, quantity):
         self.quantity += quantity
+        db.session.commit()
 
     def saveToDB(self):
         db.session.add(self)

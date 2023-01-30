@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1 style="text-align:center; margin:2rem 0; font-weight:500; font-size: 120px; text-shadow:0 0 0.1em rgb(255, 255, 255)">Cart:</h1>
+<h1 style="text-align:center; margin:2rem 0; font-weight:500; font-size: 60px; text-shadow:0 0 0.1em rgb(255, 255, 255)">Cart:</h1>
 <div class="d-flex justify-content-center flex-wrap">
     {% for item in cart %}
-    <div class="card" style="width: 18rem; margin:1rem; border: 1px solid black">
+    <div class="card" style="width: 14rem; margin:1rem; border: 1px solid black">
         <a class="text-dark text-decoration-none" href="{{ url_for('getMug', mug_id=item.id) }}">
             <img style="width:80%; margin: 0 auto; padding-left: 3rem" src="{{ item.img_url }}" class="card-img-top"
                 alt="{{ item.title }}">
@@ -11,7 +11,6 @@
                 <h5 class="card-title">{{ item.title }}</h5>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">{{ item.caption }}</li>
                 <li class="list-group-item">Quantity: {{ item.quantity }}</li>
                 <li class="list-group-item">Price: {{ item.price * item.quantity }}</li>
             </ul>
@@ -25,13 +24,16 @@
     {% endfor %}
 </div>
 
-<div class="card text-center">
+<div class="card text-center" style="width: 100%; border: 1px solid black">
     <div class="card-body">
         <h5 class="card-title">Total:</h5>
         <p class="card-text">${{final_total|round(2)}}</p>
 
         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Clear Cart
+        </button>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+            Checkout
         </button>
 
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -46,7 +48,23 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <a  class="btn btn-danger" href="{{ url_for('clear_cart') }}">Clear Cart</a>
+                        <a class="btn btn-danger" href="{{ url_for('clear_cart') }}">Clear Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Thank you for shopping at MeanMugs!</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Your credit card will be charged and your items will be shipped.
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary" href="{{ url_for('clear_cart') }}">OK</a>
                     </div>
                 </div>
             </div>

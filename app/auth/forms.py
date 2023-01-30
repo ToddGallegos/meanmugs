@@ -23,3 +23,7 @@ class AddMugsForm(FlaskForm):
     price = DecimalField("price", validators=[DataRequired()])
     quantity = IntegerField("quantity", validators=[DataRequired()])
     submit = SubmitField()
+    
+class MakeAdminForm(FlaskForm):
+    username = StringField("Username", validators = [DataRequired()], render_kw={'autofocus': True})
+    submitadmin = SubmitField()

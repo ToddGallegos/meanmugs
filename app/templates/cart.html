@@ -1,10 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1
-    style="text-align:center; margin:2rem 0; font-weight:500; font-size: 120px; text-shadow:0 0 0.1em rgb(255, 255, 255)">
-    Cart:</h1>
+<h1 style="text-align:center; margin:2rem 0; font-weight:500; font-size: 120px; text-shadow:0 0 0.1em rgb(255, 255, 255)">Cart:</h1>
 <div class="d-flex justify-content-center flex-wrap">
-    {% set total = 0 %}
     {% for item in cart %}
     <div class="card" style="width: 18rem; margin:1rem; border: 1px solid black">
         <a class="text-dark text-decoration-none" href="{{ url_for('getMug', mug_id=item.id) }}">
@@ -20,48 +17,43 @@
             </ul>
         </a>
         <div class="card-body">
-            <button type="submit" class="btn btn-danger" form="remove_from_cart_form_{{ item.id }}">Remove</button>
-<form id="remove_from_cart_form_{{ item.id }}" action="{{ url_for('remove_from_cart', mug_id=item.id) }}" method="post"></form>
+            <form id="remove_from_cart_form_{{ item.id }}" action="{{ url_for('remove_from_cart', mug_id=item.id) }}" method="post">
+                <button type="submit" class="btn btn-danger" form="remove_from_cart_form_{{ item.id }}">Remove</button>
+            </form>
         </div>
     </div>
-    {% set total = total + (item.price * item.quantity) %}
     {% endfor %}
 </div>
 
 <div class="card text-center">
     <div class="card-body">
-        <h5 class="card-title">Final Total:</h5>
-        <p class="card-text">${{ total|round(2) }}</p>
-        <!-- Button trigger modal -->
-<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Clear Cart
-</button>
+        <h5 class="card-title">Total:</h5>
+        <p class="card-text">${{final_total|round(2)}}</p>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">This will clear all items in your cart..</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Blink twice if you're sure!
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <a  class="btn btn-danger" href="{{ url_for('clear_cart') }}">Clear Cart</a>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Clear Cart
+        </button>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">This will clear all items in your cart!</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <a  class="btn btn-danger" href="{{ url_for('clear_cart') }}">Clear Cart</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-<!-- </div>
-        <button type="submit" class="btn btn-danger" form="clear_cart_form">Clear Cart</button>
-        <form id="clear_cart_form" action="{{ url_for('clear_cart') }}" method="post"></form>
-    </div>-->
 </div> 
 
-<h3
-    style="text-align:center; margin:2rem 0; font-weight:500; font-size: 50px; text-shadow:0 0 0.1em rgb(255, 255, 255)">
-</h3>
+<h3 style="text-align:center; margin:2rem 0; font-weight:500; font-size: 50px; text-shadow:0 0 0.1em rgb(255, 255, 255)"></h3>
 
 {% endblock %}

@@ -23,11 +23,13 @@ def cart():
     user_id = current_user.id
     cart_items = Cart.query.filter_by(user_id=user_id).all()
     mugs = []
+    final_total = 0
     for item in cart_items:
         mug = Mugs.query.get(item.mug_id)
         mug.quantity = item.quantity
+        final_total += mug.price * mug.quantity
         mugs.append(mug)
-    return render_template('cart.html', cart=mugs)
+    return render_template('cart.html', cart=mugs, final_total = final_total)
 
 @app.route('/<int:mug_id>/add_to_cart', methods=["POST", "GET"])
 def add_to_cart(mug_id):

@@ -28,13 +28,14 @@
     <div class="card-body">
         <h5 class="card-title">Total:</h5>
         <p class="card-text">${{final_total|round(2)}}</p>
-
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Clear Cart
-        </button>
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-            Checkout
-        </button>
+        {% if cart != [] %}
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Clear Cart
+            </button>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                Checkout
+            </button>
+        {% endif %}
 
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -61,17 +62,15 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Your credit card will be charged and your items will be shipped.
+                        Click 'Submit' to complete your order. Your card will be charged and items will be shipped.
                     </div>
                     <div class="modal-footer">
-                        <a class="btn btn-primary" href="{{ url_for('clear_cart') }}">OK</a>
+                        <a class="btn btn-primary" href="{{ url_for('clear_cart') }}">Submit</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div> 
-
-<h3 style="text-align:center; margin:2rem 0; font-weight:500; font-size: 50px; text-shadow:0 0 0.1em rgb(255, 255, 255)"></h3>
 
 {% endblock %}

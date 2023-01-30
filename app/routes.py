@@ -98,7 +98,7 @@ def addMug():
                     mug = Mugs(title, img_url, caption, price, quantity)
                     mug.saveToDB()
                     
-                    flash("Successfully Added Mug to Database!")
+                    flash("Successfully Added Mug to Database!", category='success')
                     return render_template('addmugs.html', form = form, mugs = mugs, form2 = form2)
                 
                 elif form2.submitadmin.data and form2.validate():
@@ -106,7 +106,7 @@ def addMug():
                     username = form2.username.data
                     return render_template('makeadmin.html', username = username)
                 else:
-                    flash("Form didn't pass validation.")
+                    flash("Form didn't pass validation.", category='danger')
                     return render_template('addmugs.html', form = form, mugs = mugs, form2 = form2)
                 
             elif request.method == "GET":

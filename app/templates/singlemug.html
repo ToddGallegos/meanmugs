@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<div class="card my-5 mx-auto rounded" style="max-width: 600px">
+<h1 style="text-align:center; margin:4.5rem 0 2rem 0; font-weight:500; font-size: 120px; text-shadow:0 0 0.1em rgb(255, 255, 255)">This is a Mean Mug</h1>
+<div class="card my-6 mx-auto rounded" style="max-width: 50%; margin-top: 5rem; border: 1px solid black">
     <div class="row g-0">
         <div class="col-md-4 rounded">
-            <img src="{{mug.img_url}}" class="img-fluid rounded-start" alt="{{ mug.title }}">
+            <img style="width: 100%" src="{{mug.img_url}}" class="img-fluid rounded-start" alt="{{ mug.title }}">
         </div>
         <div class="col-md-8 rounded">
             <div class="card-body rounded">

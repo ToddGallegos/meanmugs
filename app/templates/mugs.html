@@ -13,11 +13,13 @@
             <ul class="list-group list-group-flush">
             <li class="list-group-item"></li>
             <li class="list-group-item">{{ mug.caption }}</li>
-            <li class="list-group-item"><strong>Price:</strong> {{ mug.price }}</li>
+            <li class="list-group-item"><strong>Price:</strong> ${{ mug.price }}</li>
             </ul></a>
             <div class="card-body">
-                <a href="/{{mug.id}}/add_to_cart" class="card-link">Add to Cart</a>
-                <a href="/{{mug.id}}/delete" class="card-link">DB DELETE</a>
+                <button type="button" class="btn btn-success btn-sm">
+                    <a href="/{{mug.id}}/add_to_cart" class="card-link" style="color:white; text-decoration:none;">Add to Cart</a>
+                  </button>
+                <button type="button" class="btn btn-danger btn-sm"><a href="/{{mug.id}}/delete" class="card-link" style="color: white; text-decoration: none;">DB DELETE</a></button>
             </div>
         </div>
     {% endfor %}

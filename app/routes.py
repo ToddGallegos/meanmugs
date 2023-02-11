@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, jsonify
 from .models import Cart, User, Mugs
 from flask_login import current_user, login_required
 from .auth.forms import AddMugsForm, MakeAdminForm
@@ -128,3 +128,8 @@ def MakeAdmin(username):
 def MakeAdminPage():
     
     return render_template('makeadmin.html')
+
+@app.route('/meanmugsapi')
+def meanmugsapi():
+    mugs = Mugs.query.all()
+    return jsonify([m.to_dict() for m in mugs])

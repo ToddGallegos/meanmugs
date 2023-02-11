@@ -50,7 +50,12 @@ class Mugs(db.Model):
         db.session.commit()
         
     def to_dict(self):
-        return {"id": self.id, "title": self.title, "img_url": self.img_url, "caption": self.caption, "price": self.price, "quantity": self.quantity}
+        return {"id": self.id, 
+                "title": self.title, 
+                "img_url": self.img_url, 
+                "caption": self.caption, 
+                "price": self.price, 
+                "quantity": self.quantity}
 
 class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True)

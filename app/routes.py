@@ -129,7 +129,26 @@ def MakeAdminPage():
     
     return render_template('makeadmin.html')
 
-@app.route('/meanmugsapi')
+@app.route('/meanmugsapi', methods=["GET", "POST"])
 def meanmugsapi():
     mugs = Mugs.query.all()
     return jsonify([m.to_dict() for m in mugs])
+
+@app.route('/meanmugsapi/signup', methods=["GET", "POST"])
+def signUpPage():
+    data = request.json
+    
+    username = data['username']
+    email = data['email']
+    password = data['password']
+    
+    # add user to database
+    user = User(username, email, password)
+
+    user.saveToDB()
+
+    return {
+        "response": "ok",
+        "message": "Successfully signed up maybe"
+    }
+

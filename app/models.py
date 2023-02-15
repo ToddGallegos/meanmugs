@@ -11,6 +11,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), nullable=False, unique=True)
     password = db.Column(db.String, nullable=False)
     admin = db.Column(db.Boolean, default=False)
+    apitoken = db.Column(db.String(500))
 
     def __init__(self, username, email, password):
         self.username = username
@@ -25,6 +26,13 @@ class User(db.Model, UserMixin):
     def makeAdmin(self):
         self.admin = True
         db.session.commit()
+        
+    def to_dict(self):
+        return {"id": self.id, 
+                "username": self.username, 
+                "email": self.email, 
+                "token": self.apitoken
+                }
 
 class Mugs(db.Model):
     id = db.Column(db.Integer, primary_key=True)

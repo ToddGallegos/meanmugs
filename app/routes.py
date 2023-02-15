@@ -1,8 +1,10 @@
 from app import app
 from flask import render_template, request, redirect, url_for, flash, jsonify
 from .models import Cart, User, Mugs
-from flask_login import current_user, login_required
+from flask_login import current_user, login_required, login_user
 from .auth.forms import AddMugsForm, MakeAdminForm
+from .apiauthhelper import basic_auth_required, token_auth_required
+from werkzeug.security import check_password_hash
 
 @app.route('/', methods=["GET", "POST"])
 def mugs():
@@ -27,6 +29,7 @@ def cart():
         final_total += mug.price * mug.quantity
         mugs.append(mug)
     return render_template('cart.html', cart=mugs, final_total = final_total)
+
 
 @app.route('/<int:mug_id>/add_to_cart', methods=["POST", "GET"])
 def add_to_cart(mug_id):
@@ -132,6 +135,11 @@ def MakeAdminPage():
 @app.route('/meanmugsapi', methods=["GET", "POST"])
 def meanmugsapi():
     mugs = Mugs.query.all()
+    users = User.query.all()
+    for user in users:
+        print(user.username, user.apitoken)
+    for mug in mugs:
+        print(mug.title)
     return jsonify([m.to_dict() for m in mugs])
 
 @app.route('/meanmugsapi/signup', methods=["GET", "POST"])
@@ -151,4 +159,35 @@ def signUpPage():
         "response": "ok",
         "message": "Successfully signed up maybe"
     }
+
+@app.route('/meanmugsapi/signin', methods=["GET", "POST"])
+def signInPage():
+    data = request.json
+    
+    username = data['username']
+    password = data['password']
+    
+    user = User.query.filter_by(username=username).first()
+    if user:
+        #if user ecxists, check if passwords match
+        if check_password_hash(user.password, password):
+                   
+            return {
+                "response": "ok",
+                "message": "Successfully signed in maybe",
+                "user": user.to_dict()
+            }
+
+        else:
+            return {
+                'status': 'not ok',
+                'message': 'wrong password'
+            }
+
+    else:
+        return {
+                'status': 'not ok',
+                'message': 'user does not exist'
+            }
+
 

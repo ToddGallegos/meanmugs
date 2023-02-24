@@ -9,7 +9,6 @@ auth = Blueprint('auth', __name__, template_folder='auth_templates')
 @auth.route('/signup', methods=["GET", "POST"])
 def signUpPage():
     form = UserCreationForm()
-    print(request.method)
     if request.method == 'POST':
         if form.validate():
             username = form.username.data

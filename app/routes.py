@@ -135,11 +135,6 @@ def MakeAdminPage():
 @app.route('/meanmugsapi', methods=["GET", "POST"])
 def meanmugsapi():
     mugs = Mugs.query.all()
-    users = User.query.all()
-    for user in users:
-        print(user.username, user.apitoken)
-    for mug in mugs:
-        print(mug.title)
     return jsonify([m.to_dict() for m in mugs])
 
 @app.route('/meanmugsapi/signup', methods=["GET", "POST"])
@@ -169,7 +164,7 @@ def signInPage():
     
     user = User.query.filter_by(username=username).first()
     if user:
-        #if user ecxists, check if passwords match
+        #if user exists, check if passwords match
         if check_password_hash(user.password, password):
                    
             return {
